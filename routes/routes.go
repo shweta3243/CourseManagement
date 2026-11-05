@@ -15,8 +15,13 @@ func SetupRoutes(
 	subjectCtrl *controllers.SubjectController,
 	enrollmentCtrl *controllers.EnrollmentController,
 	dashboardCtrl *controllers.DashboardController,
+	healthCtrl *controllers.HealthController,
 ) {
 	api := router.Group("/api")
+
+	// ─── Health Check Routes (No Auth) ─────────────────────
+	api.GET("/health", healthCtrl.HealthCheck)
+	api.GET("/ready", healthCtrl.Readiness)
 
 	// ─── Public Routes (No Auth) ───────────────────────────
 	api.POST("/register", authCtrl.Register)

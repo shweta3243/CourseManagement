@@ -38,6 +38,7 @@ func main() {
 	subjectCtrl := controllers.NewSubjectController(subjectService)
 	enrollmentCtrl := controllers.NewEnrollmentController(enrollmentService, userRepo)
 	dashboardCtrl := controllers.NewDashboardController(dashboardService)
+	healthCtrl := controllers.NewHealthController()
 
 	// ─── Gin Router Setup ──────────────────────────────────
 	router := gin.Default()
@@ -55,7 +56,7 @@ func main() {
 	router.Use(middleware.LoggingMiddleware())
 
 	// ─── Register Routes ───────────────────────────────────
-	routes.SetupRoutes(router, authCtrl, courseCtrl, subjectCtrl, enrollmentCtrl, dashboardCtrl)
+	routes.SetupRoutes(router, authCtrl, courseCtrl, subjectCtrl, enrollmentCtrl, dashboardCtrl, healthCtrl)
 
 	// ─── Start Server ──────────────────────────────────────
 	port := os.Getenv("PORT")
